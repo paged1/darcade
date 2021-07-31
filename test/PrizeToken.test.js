@@ -36,6 +36,7 @@ contract('Prize Token', (accounts) => {
     })
   })
 
+  // testing actually giving a token to a user
   describe('token distribution', async () => {
     let result
 
