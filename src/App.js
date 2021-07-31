@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 //import {createBrowserHistory} from 'history';
 import Home from "./Home";
 import GameContainer from "./containers/GameContainer"
 import './App.css';
-import Web3 from 'web3'
-import PrizeToken from '../abis/PrizeToken.json'
+import Web3 from 'web3';
+import PrizeToken from '../abis/PrizeToken.json';
 
 //var hist = createBrowserHistory();
 
