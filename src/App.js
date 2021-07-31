@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import logo from './logo.svg';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
-//import {createBrowserHistory} from 'history';
+import {createBrowserHistory} from 'history';
 import Home from "./Home";
 import GameContainer from "./containers/GameContainer"
 import './App.css';
@@ -10,9 +10,9 @@ import PrizeToken from '../abis/PrizeToken.json';
 
 //var hist = createBrowserHistory();
 
-// function App() is a function and hav
-function App() {
 
+function App() {
+  
   // returns a new account and a setAccount fcn reference (callback)
   const [account, setAccount] = useState(0);
 
@@ -75,8 +75,9 @@ function App() {
     } else {
       alert('Smart contract not deployed to detected network.')
     }
+    
   }
-
+  
 
   return (
     <BrowserRouter >
