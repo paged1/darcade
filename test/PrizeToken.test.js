@@ -1,3 +1,7 @@
+/*
+* using mocha testing framework and chai assertions
+*/
+
 const PrizeToken = artifacts.require('./PrizeToken.sol')
 
 require('chai')
@@ -7,11 +11,12 @@ require('chai')
 contract('Prize Token', (accounts) => {
   let token
 
-  before(async () => {
-    token = await PrizeToken.deployed()
+  before(async () => { 
+    token = await PrizeToken.deployed() 
   })
 
   describe('deployment', async () => {
+    // check the deployed contract is present
     it('deploys successfully', async () => {
       const address = token.address
       assert.notEqual(address, 0x0)

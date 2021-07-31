@@ -10,7 +10,7 @@ contract PrizeToken is ERC721Full  {
     //
     constructor() ERC721Full("Prize Token", "PRIZE") public {}
 
-    function mint(address _to, string prize _tokenURI) public returns(bool) {
+    function mint(address _to, string memory _tokenURI) public returns(bool) {
        uint _tokenId = totalSupply().add(1);
        _mint(_to, _tokenId);
        _setTokenURI(_tokenId, _tokenURI);
