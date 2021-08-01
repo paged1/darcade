@@ -26,7 +26,7 @@ function App() {
     await loadWeb3()
     await loadBlockchainData()
     //this.setState({ cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random()) })
-  })
+  }, [])
 
   async function loadWeb3() {
     if (window.ethereum) {
@@ -80,12 +80,15 @@ function App() {
   
 
   return (
-    <BrowserRouter >
+    <nav style={{width : "100%", height : "100px", background: "white", margin : "0"}}>
+      <h1>{account}</h1>
+      <BrowserRouter >
         <Switch>
             <Route path="/game" component={GameContainer}/>
             <Route path="/" component={Home}/>
         </Switch>
-    </BrowserRouter>
+      </BrowserRouter>
+    </nav>
   );
 }
 
