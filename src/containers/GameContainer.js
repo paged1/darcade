@@ -63,7 +63,8 @@ class GameContainer extends React.Component {
             isGameStarted={isGameStarted}
             score={score}
             handleGameOver={this.handleGameOver}
-            handleScore={this.handleScore} />;
+            handleScore={this.handleScore} 
+            />;
     }
 }
 

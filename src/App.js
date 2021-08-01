@@ -22,6 +22,8 @@ function App() {
 
   const [totalSupply, setTotalSupply] = useState()
 
+  const [networkId, setNetworkId] = useState()
+
   useEffect( async () => {
     await loadWeb3()
     await loadBlockchainData()
@@ -45,9 +47,10 @@ function App() {
     const web3 = window.web3
     const accounts = await web3.eth.getAccounts()
     setAccount(accounts[0])
-
+    //console.log(accounts[0]); // logs something to the console
     // Load smart contract
     const networkId = await web3.eth.net.getId()
+    setNetworkId(networkId)
     const networkData = PrizeToken.networks[networkId]
     if (networkData) {
       try {
@@ -81,11 +84,12 @@ function App() {
 
   return (
     <nav style={{width : "100%", height : "100px", background: "white", margin : "0"}}>
-      <h1>{account}</h1>
-      <BrowserRouter >
+      <h1>Account: { account }</h1>
+      <h2>NetworkID: { networkId }</h2>
+      <BrowserRouter>
         <Switch>
             <Route path="/game" component={GameContainer}/>
-            <Route path="/" component={Home}/>
+            <Route path="/" component={Home} />
         </Switch>
       </BrowserRouter>
     </nav>

@@ -3,7 +3,7 @@ import {withRouter} from 'react-router';
 
 
 function Home(props) {
-
+    /*
     const [date, setDate] = useState();
 
     useEffect(() => {
@@ -14,17 +14,19 @@ function Home(props) {
         
 
 
-    }, []);
+    }, []); */
 
 
     // functional code
     return (
         <div>
+            {props.address}
+            {props.token}
 
 
 
-
-            <h1>What up: {date}</h1>
+            <h1>
+            </h1>
         </div>
     );
 }
