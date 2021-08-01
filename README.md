@@ -3,8 +3,8 @@
 Welcome to dArcade!
 
 ## Summary 
-    - [Using dArcade](#using-darcade)
-    - [Dependencies](#dependencies)
+- [Using dArcade](#using-darcade)
+- [Dependencies](#dependencies)
 
 ## Using darcade
 You must have:
