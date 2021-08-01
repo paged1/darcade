@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect, }from 'react';
 import logo from './logo.svg';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
@@ -6,7 +6,7 @@ import Home from "./Home";
 import GameContainer from "./containers/GameContainer"
 import './App.css';
 import Web3 from 'web3';
-import PrizeToken from '../abis/PrizeToken.json';
+import PrizeToken from './abis/PrizeToken.json';
 
 //var hist = createBrowserHistory();
 
@@ -20,9 +20,9 @@ function App() {
 
   const [tokenURIs, setTokenURIs] = useState([])
 
-  setTokenURIs(tokenURIs => [...tokenURIs, appendElement]);
+  const [totalSupply, setTotalSupply] = useState()
 
-  useEffect(() => {
+  useEffect( async () => {
     await loadWeb3()
     await loadBlockchainData()
     //this.setState({ cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random()) })
