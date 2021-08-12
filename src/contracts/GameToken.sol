@@ -24,7 +24,7 @@ contract GameToken {
     }
 
     // transfers tokens out from the master wallet
-    function transfer(address _to, uint256 _amount) public returns(bool) {
+    function buyToken(address _to, uint256 _amount) public returns(bool) {
         require(balanceOf[master] >= _amount);
 
         balanceOf[master] -= _amount;
@@ -37,12 +37,35 @@ contract GameToken {
 
     }
 
+    function tokenCount(address _requester) public returns (uint256) {
+        return balanceOf[_requester];
+    }
+
+
+    function buyGame(address _cust, uint256 _amount) public returns(bool) {
+        require(balanceOf[_cust] >= _amount);
+
+        balanceOf[_cust] -= _amount;
+
+        balanceOf[master] += _amount;
+
+        emit Transfer(_cust, msg.sender, _amount);
+
+        return true;
+
+
+    }
+
+
+
     function canPlay(address _requester) public returns (bool) {
         if (balanceOf[_requester] < 1) {
             return false;
         }
         return true;
     }
+
+
 
     // things like swap
 

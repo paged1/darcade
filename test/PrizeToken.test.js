@@ -11,8 +11,8 @@ require('chai')
 contract('Prize Token', (accounts) => {
   let token
 
-  before(async () => { 
-    token = await PrizeToken.deployed() 
+  before(async () => {
+    token = await PrizeToken.deployed()
   })
 
   describe('deployment', async () => {

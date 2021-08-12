@@ -14,7 +14,7 @@ function App() {
   
     const [time, setTime] = useState(Date.now());
 
-    const [gameTokens, setGameTokens] = useState([]);
+    const [gameTokens, setGameTokens] = useState(0);
 
     const [canPlay, setCanPlay] = useState(false);
 
@@ -70,16 +70,20 @@ function App() {
             // Setting current total of the blockchain supply
             setTotalSupply(await currToken.methods.totalSupply().call())
 
-
-            // Load Tokens
+            
+            // Load Prize Tokens
             let balanceOf = await currToken.methods.balanceOf(accounts[0]).call()
             console.log(balanceOf)
             for (let i = 0; i < balanceOf; i++) {
+                console.log(i);
                 let id = await currToken.methods.tokenOfOwnerByIndex(accounts[0], i).call()
                 let tokenURI = await currToken.methods.tokenURI(id).call()
 
                 // Adding tokenURI to tokenURIs
-                setTokenURIs(tokenURIs => [...tokenURIs, tokenURI]);
+                if (!tokenURIs.includes(tokenURI)) {
+                    setTokenURIs(tokenURIs => [...tokenURIs, tokenURI]);
+                }
+                
             }
 
 
@@ -89,9 +93,11 @@ function App() {
             abi = GameToken.abi
             currToken = new web3.eth.Contract(abi, address)
 
-            console.log(currToken)
+            // load Game tokens
 
-            //receiveToken(currToken, accounts[0]);
+            refreshGame(currToken, accounts[0]);
+
+            console.log(currToken)
 
             setGameToken(currToken)
 
@@ -114,18 +120,21 @@ function App() {
         console.log(GameToken)
 
         try {
-            GameToken.methods.transfer(account, 1)
+            GameToken.methods.buyToken(account, 1)
                 .send({from: account})
                 .on('transactionHash', (hash) => {
                     console.log("hashed")
                     console.log(hash)
+                    setTimeout(() => {
+                        refreshGame(GameToken, account);
+                    }, 1000)
+                    
                 })
-
-            refreshGame(GameToken, account);
+            
         }
         catch (err) {
             console.log(err)
-            alert("you can't play biatch")
+            alert("No tokens to play")
         }
     }
 
@@ -135,22 +144,30 @@ function App() {
         console.log(now);
 
         // within 500 of the last millisecond
-        if (now >= 400 || now <= 600) {
-            console.log('success')
+        if (now >= 450 && now <= 550) {
+            console.log('you win')
             var newURI = v4();
 
             console.log(newURI);
 
-            prizeToken.methods.mint(account, newURI)
+                // remove token
+                gameToken.methods.buyGame(account, 1)
                 .send({from: account})
                 .on('transactionHash', (hash) => {
-                    setTokenURIs(uris => [...uris, newURI])
+                    setTimeout(() => {
+                        refreshGame(gameToken, account);
+                        prizeToken.methods.mint(account, newURI)
+                            .send({from: account})
+                            .on('transactionHash', (hash) => {
+                                setTokenURIs(uris => [...uris, newURI])
+                            })
+
+                    }, 1000)
                 })
-
-
+                
         }
         else {
-            alert("fail")
+            alert("You lost the game")
         }
 
         
@@ -159,11 +176,13 @@ function App() {
 
     const refreshGame = async (GameToken, account) => {
         
-        const response = await GameToken.methods.canPlay(account).send({from: account})
+        const response = await GameToken.methods.tokenCount(account).call({from: account})
 
-        console.log(response.status);
+        console.log(response);
 
         setCanPlay(response.status);
+
+        setGameTokens(response);
 
     }
 
@@ -175,21 +194,21 @@ function App() {
             <Button disabled={!account} variant="contained" onClick={() => {receiveToken(gameToken, account);}} color="primary">
                 Get a token
             </Button>
-            <h3>You have {gameTokens.length} tokens</h3>
+            <h3>You have {gameTokens} tokens</h3>
             <br/>
             <h3>Your Prizes:</h3>
             {tokenURIs.map((uri) => {
                 return (<div key={uri} >
-                    <p>URI: {uri}</p>
+                    <p>- {uri}</p>
                     <br/>
                 </div>)
             })}
 
-            {canPlay && (<>
+            {gameTokens > 0 && (<>
             <h2>Time: {(time / 1000).toFixed()}</h2>
 
             <Button variant="contained" onClick={click} color="primary">
-                Click Me!
+                Click Me to Play!
             </Button>
             </>)}
 

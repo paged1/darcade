@@ -39,22 +39,22 @@ contract('Game Token', async (accounts) => {
 
     it('transfers token ownership', async () => {
         try {
-            await instance.transfer.call(accounts[1], 999999999999999);
+            await instance.buyToken.call(accounts[1], 999999999999999);
             assert.fail()
         }
         catch (err) {
             console.log('failed');
             assert(err.message.indexOf('revert') >= 0, 'error message must contain revert')
 
-            receipt = await instance.transfer.call(accounts[1], 25000, {from: accounts[0]})
+            receipt = await instance.buyToken.call(accounts[1], 25000, {from: accounts[0]})
             assert.equal(receipt, true);
 
-            receipt = await instance.transfer(accounts[1], 250000, {from: accounts[0]})            
+            receipt = await instance.buyToken(accounts[1], 250000, {from: accounts[0]})            
             assert.equal(receipt.logs.length, 1)
             assert.equal(receipt.logs[0].event, 'Transfer')
             assert.equal(receipt.logs[0].args._from, accounts[0]);
             assert.equal(receipt.logs[0].args._to, accounts[1]);
-            assert.equal(receipt.logs[0].args._amount, 250000)
+            assert.equal(receipt.logs[0]    .args._amount, 250000)
             
             assert.equal((await instance.balanceOf(accounts[1])).toNumber(), 250000)
             assert.equal((await instance.balanceOf(accounts[0])).toNumber(), 750000)
