@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {withRouter} from 'react-router';
-
 
 function Home(props) {
+
+    //const [ac]
+
+
+
     /*
     const [date, setDate] = useState();
 
@@ -20,8 +23,9 @@ function Home(props) {
     // functional code
     return (
         <div>
-            {props.address}
-            {props.token}
+            <h1>Hello</h1>
+            Account: {props.account}
+            Token: {props.token}
 
 
 
@@ -32,4 +36,4 @@ function Home(props) {
 }
 
 
-export default withRouter(Home);
+export default Home;

@@ -8,7 +8,9 @@ contract PrizeToken is ERC721Full  {
     //
     // constructor(name, symbol)
     //
-    constructor() ERC721Full("Prize Token", "PRIZE") public {}
+    constructor() ERC721Full("Prize Token", "PRIZE") public {
+        // mint our first tokens and give them all to themsg.sender wallet
+    }
 
     // creates a token (mint token -> creates a token)
     // address _to -> username of person on the blockchain we're giving it to
@@ -19,4 +21,5 @@ contract PrizeToken is ERC721Full  {
        _setTokenURI(_tokenId, _tokenURI);
        return true;
     }
+
 }
