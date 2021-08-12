@@ -127,7 +127,7 @@ function App() {
                     console.log(hash)
                     setTimeout(() => {
                         refreshGame(GameToken, account);
-                    }, 1000)
+                    }, 2000)
                     
                 })
             
@@ -144,7 +144,7 @@ function App() {
         console.log(now);
 
         // within 500 of the last millisecond
-        if (now >= 450 && now <= 550) {
+        if (now >= 400 && now <= 600) {
             console.log('you win')
             var newURI = v4();
 
@@ -162,7 +162,7 @@ function App() {
                                 setTokenURIs(uris => [...uris, newURI])
                             })
 
-                    }, 1000)
+                    }, 2000)
                 })
                 
         }

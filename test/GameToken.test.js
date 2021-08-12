@@ -54,7 +54,7 @@ contract('Game Token', async (accounts) => {
             assert.equal(receipt.logs[0].event, 'Transfer')
             assert.equal(receipt.logs[0].args._from, accounts[0]);
             assert.equal(receipt.logs[0].args._to, accounts[1]);
-            assert.equal(receipt.logs[0]    .args._amount, 250000)
+            assert.equal(receipt.logs[0].args._amount, 250000)
             
             assert.equal((await instance.balanceOf(accounts[1])).toNumber(), 250000)
             assert.equal((await instance.balanceOf(accounts[0])).toNumber(), 750000)
